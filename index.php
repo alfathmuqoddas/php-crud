@@ -10,7 +10,7 @@
 <body>
 <?php
 include_once("config.php");
-$result = mysqli_query($conn, "SELECT * FROM `malasngoding-user`");
+$result = mysqli_query($conn, "SELECT * FROM `malasngoding_user` ORDER BY id DESC");
 ?>
 
 <div class="container">
@@ -27,18 +27,18 @@ $result = mysqli_query($conn, "SELECT * FROM `malasngoding-user`");
     </tr>
   </thead>
 <?php
+$num = 1;
 while($res = mysqli_fetch_array($result)) {
 	echo "<tbody>";
 	echo "<tr>";
-	echo "<th scope=\'row\'>".$res['id']."</th>";
+	echo "<th scope=\'row\'>".$num++."</th>";
 	echo "<td>".$res['nama']."</td>";
 	echo "<td>".$res['alamat']."</td>";
 	echo "<td>".$res['pekerjaan']."</td>";
-	echo "<td><a class=\"btn btn-primary me-2\" href=\"edit.php?id=$res[id]\">Edit</a><a class=\"btn btn-danger\" href=\"delete.php?id=$res[id]\">Delete</a></td>";
+	echo "<td><a class=\"btn btn-success me-2\" href=\"edit.php?id=$res[id]\">Edit</a><a class=\"btn btn-danger\" href=\"delete.php?id=$res[id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td>";
 	echo "</tr>";
 	echo "</tbody>";
 }
-mysqli_close($conn);
 ?>
 </table>
 </div>

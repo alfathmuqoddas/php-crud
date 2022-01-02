@@ -1,34 +1,44 @@
 <html>
-<title>Add Data</title>
+<head>
+	<title>Add Data</title>
+</head>
+
 <body>
 <?php
+//including the database connection file
 include_once("config.php");
 
-if (isset($_POST['submit'])) {
+if(isset($_POST['Submit'])) {	
 	$name = mysqli_real_escape_string($conn, $_POST['name']);
 	$address = mysqli_real_escape_string($conn, $_POST['address']);
 	$jobs = mysqli_real_escape_string($conn, $_POST['jobs']);
-
+		
+	// checking empty fields
 	if(empty($name) || empty($address) || empty($jobs)) {
-
+				
 		if(empty($name)) {
-			echo "<span class=\"text-danger\">Name Fields is empty</span>"
+			echo "<font color='red'>Name field is empty.</font><br/>";
 		}
-
+		
 		if(empty($address)) {
-			echo "<span class=\"text-danger\">Address Fields is empty</span>"
+			echo "<font color='red'>Age field is empty.</font><br/>";
 		}
-
+		
 		if(empty($jobs)) {
-			echo "<span class=\"text-danger\">jobs Fields is empty</span>"
+			echo "<font color='red'>Email field is empty.</font><br/>";
 		}
-
-		echo "<br/><a href=\"javascript:self.history.back();\">Go Back</a>";
-	} else {
-
-		$result = mysqli_query($conn, "INSERT INTO `malasngoding-user` (name, address, jobs) VALUES ('$name', '$address', '$jobs')");
-
-		echo "<span>Data added successfully</span>"
+		
+		//link to the previous page
+		echo "<br/><a href='javascript:self.history.back();'>Go Back</a>";
+	} else { 
+		// if all the fields are filled (not empty) 
+			
+		//insert data to database	
+		$result = mysqli_query($conn, "INSERT INTO malasngoding_user(nama,alamat,pekerjaan) VALUES('$name','$address','$jobs')");
+		
+		//display success message
+		echo "<font color='green'>Data added successfully.";
+		echo "<br/><a href='index.php'>View Result</a>";
 	}
 }
 ?>
